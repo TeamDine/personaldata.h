@@ -1,44 +1,95 @@
 # personaldata.h
-///cabecera de la clase para datos personales
-#ifndef PERSONALDATA_H_INCLUDED
-#define PERSONALDATA_H_INCLUDED
+#ifndef PROFESSOR_H_INCLUDED
+#define PROFESSOR_H_INCLUDED
 
 /*** Cabeceras del sistema ***/
+#include <string>
 
-/*** Cabeceras locales ***/
-#include "name.h"
-#include "address.h"
-#include "economicdependent.h"
+/*** Cabeceras locales***/
+#include "listexception.h"          ///Excepciones de lista
+#include "name.h"                   ///Registrar nombres validos
+#include "date.h"                   ///Registrar fechas validas
+#include "address.h"                ///Registrar domicilios
+#include "personaldata.h"           ///Datos personales
+#include "academicformation.h"      ///Formación académica
+#include "academicproduction.h"     ///Produccion académica
+#include "teaching.h"               ///Docencia (Clases impartidas)
+#include "tutorials.h"              ///Tutorias (Alumnos tutorados)
 
-class PersonalData{
+class Professor{
     private:
-        Name name;                  ///Nombre completo
-        Address address;            ///Domicilio
-        std::string tel;            ///telefono
-        std::string email;          ///Correo electrónico
-        std::string status;         ///Estado civil
-        EconomicDependent family[10];   ///Familiares dependientes económicos
-        int cont;                       ///Conteo de familiares registrados
+        ///Atributos
+        PersonalData data;
+        Formation school[10];
+        AcademicProduction perfomance[10];
+        Teaching courses[10];
+        Tutorials student[15];
+
+        ///Atributos (LISTAS)
+        int formacion;      ///Ancla de Lista (FORMACION ACADEMICA)
+        int produccion;     ///Ancla de Lista (PRODUCCION ACADEMICA)
+        int docencia;       ///Ancla de Lista (DOCENCIA)
+        int tutoria;        ///Ancla de Lista (TUTORIAS)
 
     public:
-        PersonalData();         ///Constructor base
+        Professor();
+        /******************************** DATOS PERSONALES ****************************************/
+        void setData(PersonalData& );
+        PersonalData getData();
 
-        /*** getters ***/
-        Name getName();
-        Address getAddress();
-        std::string getTelphone();
-        std::string getEmail();
-        std::string getStatus();
-        int getCont();
+        /******************************** FORMACION ACADEMICA ****************************************/
+        bool emptyFormation();
+        bool fullFormation();
+        void insertFormation(int& ,Formation&);     ///Recibe (posición en el arreglo, objeto)
+        void deleteFormation(int& );     ///Recibe (posición en el arreglo)
 
-        /*** setters ***/
-        void setName(Name& );
-        void setAddress (Address&);
-        void setTelphone(std::string& );
-        void setEmail(std::string& );
-        void setStatus(std::string& );
-        void setCont(int& );
+        int getLastFormation();
+        int getFirstFormation();
+
+        Formation returnFormation(const int&);     ///Recibe (posición) - Retorna (objeto)
+        bool findFormation(std::string&);               ///Recibe(id cedula) - retorna(bandera) [busca un dato]
+        std::string toStringFormation();             ///Imprime lista
+
+        /******************************** PRODUCCION ACADEMICA ****************************************/
+        bool emptyProduction();
+        bool fullProduction();
+        void insertProduction(int& ,AcademicProduction&);     ///Recibe (posición en el arreglo, objeto)
+        void deleteProduction(int& );     ///Recibe (posición en el arreglo)
+
+        int getLastProduction();
+        int getFirstProduction();
+
+        AcademicProduction returnProduction(const int&);     ///Recibe (posición) - Retorna (objeto)
+        bool findProduction(std::string&);               ///Recibe(id registro) - retorna(bandera) [busca un dato]
+        std::string toStringProduction();             ///Imprime lista
+
+        /******************************** DOCENCIA ****************************************/
+        bool emptyCourses();
+        bool fullCourses();
+        void insertCourses(int& ,Teaching&);     ///Recibe (posición en el arreglo, objeto)
+        void deleteCourses(int& );     ///Recibe (posición en el arreglo)
+
+        int getLastCourses();
+        int getFirstCourses();
+
+        Teaching returnCourse(const int&);     ///Recibe (posición) - Retorna (objeto)
+        bool findCourses(std::string&);               ///Recibe(nombre) - retorna(bandera) [busca un dato]
+        std::string toStringCourses();             ///Imprime lista
+
+        /******************************** TUTORIAS ****************************************/
+        bool emptyTutorial();
+        bool fullTutorial();
+        void insertTutorial(int& ,Tutorials&);     ///Recibe (posición en el arreglo, objeto)
+        void deleteTutorial(int& );     ///Recibe (posición en el arreglo)
+
+        int getLastTutorial();
+        int getFirstTutorial();
+
+        Tutorials returnTutorial(const int&);     ///Recibe (posición) - Retorna (objeto)
+        bool findTutorial(Name&);               ///Recibe(nombre) - retorna(bandera) [busca un dato]
+        std::string toStringTutorial();             ///Imprime lista
+
 };
 
+#endif // PROFESSOR_H_INCLUDED
 
-#endif // PERSONALDATA_H_INCLUDED
